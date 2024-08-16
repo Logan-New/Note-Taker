@@ -21,9 +21,9 @@ const show = (elem) => {
   elem.style.display = 'inline';
 };
 
-// Hide an element
-const hide = (elem) => {
-  elem.style.display = 'none';
+// Ensure an element is always visible
+const alwaysShow = (elem) => {
+  elem.style.display = 'inline'; // Force display to inline
 };
 
 // activeNote is used to keep track of the note in the textarea
@@ -60,13 +60,14 @@ const deleteNote = (id) =>
 // Render the active note in the textarea
 const renderActiveNote = () => {
   if (activeNote.id) {
-    newNoteBtn.style.display = 'inline';
+    // Ensure buttons are always visible
+    alwaysShow(newNoteBtn);
     noteTitle.setAttribute('readonly', true);
     noteText.setAttribute('readonly', true);
     noteTitle.value = activeNote.title;
     noteText.value = activeNote.text;
   } else {
-    newNoteBtn.style.display = 'none';
+    alwaysShow(newNoteBtn);
     noteTitle.removeAttribute('readonly');
     noteText.removeAttribute('readonly');
     noteTitle.value = '';
@@ -117,16 +118,8 @@ const handleNewNoteView = () => {
 
 // Handle button visibility based on form input
 const handleRenderBtns = () => {
-  if (!noteTitle.value.trim() && !noteText.value.trim()) {
-    saveNoteBtn.style.display = 'none';
-    clearBtn.style.display = 'none';
-  } else if (!noteTitle.value.trim() || !noteText.value.trim()) {
-    saveNoteBtn.style.display = 'none';
-    clearBtn.style.display = 'inline';
-  } else {
-    saveNoteBtn.style.display = 'inline';
-    clearBtn.style.display = 'inline';
-  }
+  alwaysShow(saveNoteBtn);
+  alwaysShow(clearBtn);
 };
 
 // Render the list of notes
